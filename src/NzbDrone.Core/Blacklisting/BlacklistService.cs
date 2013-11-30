@@ -8,7 +8,7 @@ namespace NzbDrone.Core.Blacklisting
 {
     public interface IBlacklistService
     {
-        bool Blacklisted(string sourceTitle);
+        bool Blacklisted(int seriesId,string sourceTitle);
         PagingSpec<Blacklist> Paged(PagingSpec<Blacklist> pagingSpec);
         void Delete(int id);
     }
@@ -24,9 +24,9 @@ namespace NzbDrone.Core.Blacklisting
             _redownloadFailedDownloadService = redownloadFailedDownloadService;
         }
 
-        public bool Blacklisted(string sourceTitle)
+        public bool Blacklisted(int seriesId, string sourceTitle)
         {
-            return _blacklistRepository.Blacklisted(sourceTitle);
+            return _blacklistRepository.Blacklisted(seriesId,sourceTitle);
         }
 
         public PagingSpec<Blacklist> Paged(PagingSpec<Blacklist> pagingSpec)
