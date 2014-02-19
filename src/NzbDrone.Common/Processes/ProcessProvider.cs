@@ -179,9 +179,7 @@ namespace NzbDrone.Common.Processes
         public ProcessOutput StartAndCapture(string path, string args = null)
         {
             var output = new ProcessOutput();
-            var process = Start(path, args, s => output.Standard.Add(s), error => output.Error.Add(error));
-
-            WaitForExit(process);
+            Start(path, args, s => output.Standard.Add(s), error => output.Error.Add(error)).WaitForExit();
 
             return output;
         }

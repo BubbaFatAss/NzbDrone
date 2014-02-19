@@ -22,11 +22,13 @@ namespace NzbDrone.Mono
         {
             var monoProcesses = _processProvider.FindProcessByName("mono");
 
+            _logger.Info("{0} mono processes", monoProcesses.Count);
+
             return monoProcesses.Where(c =>
             {
                 try
                 {
-                    _logger.Trace("Start path: {0}", c.StartPath);
+                    _logger.Info("Start path: {0}", c.StartPath);
                     var processArgs = _processProvider.StartAndCapture("ps", String.Format("-p {0} -o args=", c.Id));
 
                     return processArgs.Standard.Any(p => p.Contains(ProcessProvider.NZB_DRONE_PROCESS_NAME + ".exe") ||
